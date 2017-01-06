@@ -43,4 +43,4 @@ RUN ln -s /opt/OpenBLAS/lib/libopenblas.so /usr/lib/libopenblas.so && \
 	cd /OverFeat/API/python && python setup.py install && \
 	pip install pillow
 
-ENV OVERFEAT_HOME = /OverFeat
+ENV OVERFEAT_HOME /OverFeat
