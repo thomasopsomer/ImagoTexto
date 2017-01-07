@@ -3,6 +3,7 @@ import numpy
 from scipy.ndimage import imread
 from scipy.misc import imresize
 import os
+import time
 
 # read image
 image = imread('test.jpg')
@@ -29,11 +30,13 @@ overfeat_home = os.environ.get("OVERFEAT_HOME", "/OverFeat")
 overfeat.init(os.path.join(overfeat_home, './data/default/net_weight_0'), 0)
 
 # run overfeat on the image
+t = time.time()
 b = overfeat.fprop(image)
+print(t - time.time())
 
 # get ouput of layer n
 n = 16
-b.get_output(n)
+output = overfeat.get_output(n)
 
 # display top 5 classes
 b = b.flatten()
