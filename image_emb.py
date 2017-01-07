@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from vgg16 import VGG16
 from keras.preprocessing import image
-from imagenet_utils import preprocess_input
+from keras_model.vgg16 import VGG16
+from keras_model.imagenet_utils import preprocess_input
 import numpy as np
 from keras.models import Model
 from keras.preprocessing.image import (
