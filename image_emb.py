@@ -40,7 +40,7 @@ def extract_feature_vgg16(image_folder, nb_image, output_path=None,
         batch_size=batch_size,
         class_mode=None)
 
-    features = model.predict_generator(train_generator, 10)
+    features = model.predict_generator(train_generator, nb_image)
 
     if output_path:
         # save the output as a Numpy array
