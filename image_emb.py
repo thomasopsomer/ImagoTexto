@@ -18,6 +18,7 @@ except:
 
 
 @begin.start
+@begin.convert(nb_image=int, batch_size=int)
 def extract_feature_vgg16(image_folder, nb_image, output_path=None,
                           batch_size=32, layer_name="fc1"):
     """ """
@@ -39,11 +40,11 @@ def extract_feature_vgg16(image_folder, nb_image, output_path=None,
         batch_size=batch_size,
         class_mode=None)
 
-    features = model.predict_generator(train_generator, nb_image)
+    features = model.predict_generator(train_generator, 10)
 
     if output_path:
         # save the output as a Numpy array
-        np.save(open('output_path', 'w'), features)
+        np.save(open(output_path, 'w'), features)
         return
     else:
         return features
@@ -54,13 +55,10 @@ def extract_feature_vgg16(image_folder, nb_image, output_path=None,
 # x = image.img_to_array(img)
 # x = np.expand_dims(x, axis=0)
 # x = preprocess_input(x)
-
+# import time
+# t = time.time()
 # features = model.predict(x)
+# print(time.time() - t)
 # print features.shape
-
-
-
-
-# 
 
 
