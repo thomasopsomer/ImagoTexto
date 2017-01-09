@@ -6,6 +6,7 @@ Canonical correlation analysis can be defined as the problem of finding two sets
 basis vectors, one for x and the other for y, such that the correlations between the
 projections of the variables onto these basis vectors are mutually maximized.
 
+http://www.imt.liu.se/~magnus/cca/tutorial/tutorial.pdf
 
 """
 import numpy as np
