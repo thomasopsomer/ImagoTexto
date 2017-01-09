@@ -2,6 +2,8 @@
 from keras.preprocessing import image
 from keras.applications.vgg16 import VGG16
 from keras.applications.vgg19 import VGG19
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.resnet50 import ResNet50
 from keras.applications.imagenet_utils import preprocess_input
 # from keras_model.imagenet_utils import preprocess_input
 # from keras_model.vgg16 import VGG16
@@ -21,12 +23,15 @@ except:
 def MyGenerator(folder_path, nb_image, batch_size, target_size):
     """ """
     import os
-    flist = [os.path.join(folder_path, x) for x in os.listdir(folder_path)
-             if x.endswith(".jpg")]
+    flist = sorted(
+        [os.path.join(folder_path, x) for x in os.listdir(folder_path)
+         if x.endswith(".jpg")]
+    )
     print("Found %s images in folder %s" % (len(flist), folder_path))
     #
     while True:
-        for k in xrange(0, nb_image, batch_size):
+        for k in range(0, nb_image, batch_size):
+            print("Progress: %s / %s" % (k / batch_size, nb_image / batch_size))
             # load files
             X = load_files(flist[k:k + batch_size], target_size)
             yield X
@@ -60,6 +65,18 @@ def extract_feature_vgg16(image_folder, nb_image, output_path=None,
     elif net == "vgg19":
         base_model = VGG19(weights='imagenet', include_top=True)
         target_size = (224, 224)
+    elif net == "inception":
+        base_model = InceptionV3(weights='imagenet', include_top=True)
+        target_size = (229, 229)
+        layer_name = "predictions"
+        print("layer fixed at predictions")
+    elif net == "resnet":
+        base_model = ResNet50(weights='imagenet', include_top=True)
+        target_size = (224, 224)
+        layer_name = "fc1000"
+        print("layer fixed at fc1000")
+    else:
+        raise ValueError("net should be in [vgg16, vgg19, inception]")
 
     # Show the layer
     if layer_name in ['fc1', 'fc2', 'predictions']:
